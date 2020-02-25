@@ -4,4 +4,4 @@
  | User Routes
  |--------------------------------------------------------------------------
  */
-$router->get('/user/create', 'UserController@register');
+$router->get('/user/create', 'UserController@create');
