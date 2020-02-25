@@ -4,5 +4,5 @@
  | User Routes
  |--------------------------------------------------------------------------
  */
-$router->post("/user/create", "UserController@create");
+$router->post("/user", "UserController@store");
 $router->get("/user/{id}", "UserController@index");

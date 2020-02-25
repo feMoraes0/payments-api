@@ -20,7 +20,7 @@ class UserController extends Controller
     return response()->json(["user" => $data], 200);
   }
 
-  public function create(Request $request)
+  public function store(Request $request)
   {
     $this->validate(
       $request,
