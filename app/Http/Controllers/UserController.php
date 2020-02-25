@@ -26,7 +26,7 @@ class UserController extends Controller
       [
         "user"    => $saved,
       ],
-      200
+      201
     );
   }
 }
