@@ -47,4 +47,32 @@ class UserController extends Controller
     $new_user->update();
     return response()->json(["user" => $new_user], 200);
   }
+
+  public function delete(Request $request, $id)
+  {
+    $this->validate(
+      $request,
+      [
+        "email" => "required",
+        "password" => "required"
+      ],
+      $this->user->messages
+    );
+
+    $data = $this->user->where([
+      ["id", "=", $id],
+      ["email", "=", $request->email],
+      ["password", "=", $request->password]
+    ])->first();
+    
+    if(!$data)
+      return response()->json(["message" => "User not found."], 404);
+
+    $response = $data->delete();
+
+    if($response)
+      return response()->json(["message" => "Deleted with success"], 200);
+
+    return response()->json(["message" => "Database failed to delete, try again later."], 505); 
+  }
 }
