@@ -14,7 +14,8 @@ class UserController extends Controller
     $this->user = new User();
   }
 
-  public function index($id) {
+  public function index($id)
+  {
     $data = $this->user->find($id);
     return response()->json(["user" => $data], 200);
   }
@@ -27,11 +28,6 @@ class UserController extends Controller
       $this->user->messages
     );
     $saved = $this->user->create($request->all());
-    return response()->json(
-      [
-        "user"    => $saved,
-      ],
-      201
-    );
+    return response()->json(["user" => $saved], 201);
   }
 }
