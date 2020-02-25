@@ -17,6 +17,10 @@ class UserController extends Controller
   public function index($id)
   {
     $data = $this->user->find($id);
+    
+    if(is_null($data))
+      return response()->json(["message" => "User not found."], 404);
+    
     return response()->json(["user" => $data], 200);
   }
 
