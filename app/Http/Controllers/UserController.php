@@ -14,6 +14,11 @@ class UserController extends Controller
     $this->user = new User();
   }
 
+  public function index($id) {
+    $data = $this->user->find($id);
+    return response()->json(["user" => $data], 200);
+  }
+
   public function create(Request $request)
   {
     $this->validate(
