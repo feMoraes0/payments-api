@@ -45,7 +45,8 @@ class PaymentController extends Controller
     return response()->json(["payment" => $payment], 201);
   }
 
-  public function update(Request $request, $id) {
+  public function update(Request $request, $id)
+  {
     $this->validate(
       $request,
       [
