@@ -28,3 +28,5 @@ $router->group(["prefix" => "user"], function () use ($router)
     $router->delete("{id}", "PaymentController@delete");
   });
 });
+
+$router->get("/categories", "CategoryController@all");
