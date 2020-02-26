@@ -13,7 +13,7 @@ class Payment extends Model
    * @var array
    */
   protected $fillable = [
-    "label", "amout"
+    "user_id", "category_id", "label", "amount"
   ];
 
   /**
@@ -22,8 +22,10 @@ class Payment extends Model
    * @var array
    */
   public $rules = [
-    "label"   => "required",
-    "amount"  => "required"
+    "user_id"     => "required",
+    "category_id" => "required",
+    "label"       => "required",
+    "amount"      => "required"
   ];
 
   /**
