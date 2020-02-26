@@ -20,10 +20,16 @@ class PaymentController extends Controller
   {
     $payment = $this->payment->find($user_id, $id);
 
-    if($payment)
-      return response()->json(["payment" => $payment], 200);
+    if(!$payment)
+      return response()->json(["message" => "Payment not found."], 404);
+    
+    $category = Category::find($payment->category_id);
+    
+    unset($payment->category_id);
 
-    return response()->json(["message" => "Payment not found."], 404);
+    $payment->category = $category;
+    
+    return response()->json(["payment" => $payment], 200);
   }
 
   public function store(Request $request, $user_id)
@@ -43,6 +49,10 @@ class PaymentController extends Controller
     $request["user_id"] = intval($user_id);
     
     $payment = $this->payment->create($request->all());
+
+    unset($payment->category_id);
+
+    $payment->category = $category;
 
     return response()->json(["payment" => $payment], 201);
   }
@@ -70,6 +80,10 @@ class PaymentController extends Controller
     $payment->label = $request->label;
 
     $payment->update();
+
+    unset($payment->category_id);
+
+    $payment->category = $category;
 
     return response()->json(["payment" => $payment], 200);
   }
