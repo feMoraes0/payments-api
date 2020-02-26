@@ -42,11 +42,6 @@ class PaymentController extends Controller
     
     $payment = $this->payment->create($request->all());
 
-    return response()->json(
-      [
-        "payment" => $payment
-      ],
-      200
-    );
+    return response()->json(["payment" => $payment], 201);
   }
 }
