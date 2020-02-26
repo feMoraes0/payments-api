@@ -74,4 +74,17 @@ class PaymentController extends Controller
 
     return response()->json(["payment" => $payment], 200);
   }
+
+  public function delete($id)
+  {
+    $payment = $this->payment->find($id);
+
+    if(is_null($payment))
+      return response()->json(["message" => "Payment not found"], 404);
+    
+    if($payment->delete())
+      return response()->json(["message" => "Deleted with success"], 200);
+    
+    return response()->json(["message" => "Fail to delete, try again later"], 505);
+  }
 }
