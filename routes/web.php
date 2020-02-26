@@ -1,20 +1,30 @@
 <?php
 /*
- |--------------------------------------------------------------------------
- | User Routes
- |--------------------------------------------------------------------------
- */
-$router->post("/user", "UserController@store");
-$router->get("/user/{id}", "UserController@index");
-$router->put("/user/{id}", "UserController@update");
-$router->delete("/user/{id}", "UserController@delete");
-
-/*
- |--------------------------------------------------------------------------
- | Payments Routes
- |--------------------------------------------------------------------------
- */
-$router->post("/payment", "PaymentController@store");
-$router->get("/payment/{id}", "PaymentController@index");
-$router->put("/payment/{id}", "PaymentController@update");
-$router->delete("/payment/{id}", "PaymentController@delete");
+|--------------------------------------------------------------------------
+| Routes
+|--------------------------------------------------------------------------
+*/
+$router->group(["prefix" => "user"], function () use ($router)
+{
+  /*
+  |--------------------------------------------------------------------------
+  | User Routes
+  |--------------------------------------------------------------------------
+  */
+  $router->post("", "UserController@store");
+  $router->get("{id}", "UserController@index");
+  $router->put("{id}", "UserController@update");
+  $router->delete("{id}", "UserController@delete");
+  /*
+  |--------------------------------------------------------------------------
+  | User Payment Routes
+  |--------------------------------------------------------------------------
+  */
+  $router->group(["prefix" => "{user_id}/payment"], function () use ($router)
+  {
+    $router->post("", "PaymentController@store");
+    $router->get("{id}", "PaymentController@index");
+    $router->put("{id}", "PaymentController@update");
+    $router->delete("{id}", "PaymentController@delete");
+  });
+});

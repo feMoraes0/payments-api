@@ -16,21 +16,21 @@ class PaymentController extends Controller
     $this->payment = new Payment();
   }
 
-  public function index($id)
+  public function index($user_id, $id)
   {
-    $payment = $this->payment->find($id);
-    
+    $payment = $this->payment->find($user_id, $id);
+
     if($payment)
       return response()->json(["payment" => $payment], 200);
 
     return response()->json(["message" => "Payment not found."], 404);
   }
 
-  public function store(Request $request)
+  public function store(Request $request, $user_id)
   {
     $this->validate($request, $this->payment->rules, $this->payment->messages);
 
-    $user = User::find($request->user_id);
+    $user = User::find($user_id);
 
     if(is_null($user))
       return response()->json(["message" => "User not found."], 404);
@@ -39,25 +39,23 @@ class PaymentController extends Controller
 
     if(is_null($category))
       return response()->json(["message" => "Category not found."], 404);
+
+    $request["user_id"] = intval($user_id);
     
     $payment = $this->payment->create($request->all());
 
     return response()->json(["payment" => $payment], 201);
   }
 
-  public function update(Request $request, $id)
+  public function update(Request $request, $user_id, $id)
   {
     $this->validate(
       $request,
-      [
-        "category_id" => "required",
-        "amount" => "required",
-        "label" => "required"
-      ],
+      $this->payment->rules,
       $this->payment->messages
     );
 
-    $payment = $this->payment->find($id);
+    $payment = $this->payment->find($user_id, $id);
 
     if(is_null($payment))
       return response()->json(["message" => "Payment not found."], 404);
@@ -76,15 +74,15 @@ class PaymentController extends Controller
     return response()->json(["payment" => $payment], 200);
   }
 
-  public function delete($id)
+  public function delete($user_id, $id)
   {
-    $payment = $this->payment->find($id);
+    $payment = $this->payment->find($user_id, $id);
 
     if(is_null($payment))
       return response()->json(["message" => "Payment not found"], 404);
     
     if($payment->delete())
-      return response()->json(["message" => "Deleted with success"], 200);
+      return response()->json(["message" => "Deleted with success", "payment" => $payment], 200);
     
     return response()->json(["message" => "Fail to delete, try again later"], 505);
   }

@@ -22,10 +22,9 @@ class Payment extends Model
    * @var array
    */
   public $rules = [
-    "user_id"     => "required",
     "category_id" => "required",
-    "label"       => "required",
-    "amount"      => "required"
+    "amount" => "required",
+    "label" => "required"
   ];
 
   /**
@@ -36,4 +35,17 @@ class Payment extends Model
   public $messages = [
     "required" => "The :attribute is required."
   ];
+
+  /**
+   * override function
+   * 
+   * @var int
+   * @var int
+   */
+  public function find($user_id, $id) {
+    return $this->where([
+      ["id", "=", $id],
+      ["user_id", "=", $user_id]
+    ])->first();
+  }
 }
