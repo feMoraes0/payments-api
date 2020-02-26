@@ -44,4 +44,34 @@ class PaymentController extends Controller
 
     return response()->json(["payment" => $payment], 201);
   }
+
+  public function update(Request $request, $id) {
+    $this->validate(
+      $request,
+      [
+        "category_id" => "required",
+        "amount" => "required",
+        "label" => "required"
+      ],
+      $this->payment->messages
+    );
+
+    $payment = $this->payment->find($id);
+
+    if(is_null($payment))
+      return response()->json(["message" => "Payment not found."], 404);
+    
+    $category = Category::find($request->category_id);
+
+    if(is_null($category))
+      return response()->json(["message" => "Category not found."], 404);
+    
+    $payment->category_id = $request->category_id;
+    $payment->amount = $request->amount;
+    $payment->label = $request->label;
+
+    $payment->update();
+
+    return response()->json(["payment" => $payment], 200);
+  }
 }

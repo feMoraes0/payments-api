@@ -16,3 +16,4 @@ $router->delete("/user/{id}", "UserController@delete");
  */
 $router->post("/payment", "PaymentController@store");
 $router->get("/payment/{id}", "PaymentController@index");
+$router->put("/payment/{id}", "PaymentController@update");
