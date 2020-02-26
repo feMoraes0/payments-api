@@ -16,6 +16,16 @@ class PaymentController extends Controller
     $this->payment = new Payment();
   }
 
+  public function index($id)
+  {
+    $payment = $this->payment->find($id);
+    
+    if($payment)
+      return response()->json(["payment" => $payment], 200);
+
+    return response()->json(["message" => "Payment not found."], 404);
+  }
+
   public function store(Request $request)
   {
     $this->validate($request, $this->payment->rules, $this->payment->messages);
