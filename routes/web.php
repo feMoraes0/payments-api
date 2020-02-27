@@ -30,3 +30,6 @@ $router->group(["prefix" => "user"], function () use ($router)
 });
 
 $router->get("/categories", "CategoryController@all");
+
+$router->post("/api/login", "AuthController@login");
+$router->post("/api/register", "AuthController@register");
