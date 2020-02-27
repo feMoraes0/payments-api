@@ -47,15 +47,15 @@ class AuthController extends Controller
     $user->password = hash("sha256", $request->password);
 
     $db_user = $user->where([
-      ["email" => $user->email],
-      ["password" => $user->password]
-    ]);
+      ["email", "=", $user->email],
+      ["password", "=", $user->password]
+    ])->first();
 
     if(is_null($db_user))
       return response()->json(["message" => "User not found."], 404);
     
     $auth = new Auth();
-    $token = $auth->generateToken($db_user->id);
+    $token = $auth->generateToken($user->id);
 
     return response()->json(["token" => $token, "user" => $db_user], 201);
   }
