@@ -17,6 +17,7 @@ class AuthMiddleware
   public function handle($request, Closure $next)
   {
     try {
+      $user_requested = $request->route('user_id');
       $auth = new Auth();
 
       if(!$request->header("authorization"))
@@ -28,9 +29,9 @@ class AuthMiddleware
 
       if($validate["code"] == 200)
       {
-        $request->user_id = $validate["code"];
-      
-        return $next($request);
+        if($validate["code"] == $user_requested)
+          return $next($request);
+        return response()->json(["message" => "User and token does not match."], 400);
       }
 
       return response()->json(["message" => $validate["message"]], $validate["code"]);
