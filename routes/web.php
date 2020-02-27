@@ -4,7 +4,7 @@
 | Routes
 |--------------------------------------------------------------------------
 */
-$router->group(["prefix" => "user"], function () use ($router)
+$router->group(["prefix" => "user", "middleware" => "auth"], function () use ($router)
 {
   /*
   |--------------------------------------------------------------------------

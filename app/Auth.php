@@ -13,10 +13,10 @@ class Auth extends Model
     {
       $token = explode(" ", $authentication);
 
-      if($token[0] != "Baerer")
+      if($token[0] != "Bearer")
         return [
           "message" => "Invalid token",
-          "code" => 400
+          "code" => 401
         ];
 
       $parts = explode(".", $token[1]);
@@ -40,18 +40,19 @@ class Auth extends Model
         if(intval($start) <= $now && intval($end) >= $now)
           return [
             "message" => "success",
+            "user_id" => $user_id,
             "code" => 200,
           ];
         
         return [
           "message" => "Token expired",
-          "code" => 400
+          "code" => 401
         ];
       }
 
       return [
         "message" => "Invalid token",
-        "code" => 400
+        "code" => 401
       ];
     }
     catch(Exception $e)
@@ -59,7 +60,7 @@ class Auth extends Model
       return [
         "token" => $token,
         "message" => "Fail to verify token",
-        "code" => 400
+        "code" => 505
       ];
     }
   }
