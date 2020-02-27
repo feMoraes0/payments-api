@@ -3,12 +3,15 @@
 <h1 align="center">Payments API</h1>
 
 ## Documentation
-You can find all endpoints and useful informations about this API [here](https://paymentsapi.readme.io/).
+You can find all endpoints and useful informations about this API [here](https://paymentsapi.readme.io/) (incomplete).
 
 ## Useful Links
  - [Lumen 6.X](https://lumen.laravel.com/docs/6.x/)
  - [Validation](https://lumen.laravel.com/docs/6.x/validation)
  - [How to fix lumen or laravel connection error](https://stackoverflow.com/questions/31102570/call-to-a-member-function-connection-on-a-non-object-error-on-laravel-5)
+ - [Introduction to JSON Web Tokens](https://jwt.io/introduction/)
+ - [HTTP Status Code](https://httpstatuses.com/)
+ - [Get Laravel Route Parameters in Middleware](https://scotch.io/tutorials/get-laravel-route-parameters-in-middleware)
 
 ## Contact
   - <a target="_blank" href="https://www.linkedin.com/in/fernando-moraes-48a26916a/">LinkedIn</a>
