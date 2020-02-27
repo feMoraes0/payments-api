@@ -10,7 +10,6 @@ class AuthController extends Controller
 {
   public function register(Request $request)
   {
-
     $user = new User();
 
     $this->validate($request, $user->rules, $user->messages);
@@ -33,37 +32,31 @@ class AuthController extends Controller
 
   public function login(Request $request)
   {
-    $header = $request->header();
+    $user = new User();
 
-    $token = $header["authorization"][0];
+    $this->validate(
+      $request,
+      [
+        "email" => "required",
+        "password" => "required"
+      ],
+      $user->messages
+    );
 
+    $user->email = $request->email;
+    $user->password = hash("sha256", $request->password);
+
+    $db_user = $user->where([
+      ["email" => $user->email],
+      ["password" => $user->password]
+    ]);
+
+    if(is_null($db_user))
+      return response()->json(["message" => "User not found."], 404);
+    
     $auth = new Auth();
-    $verify = $auth->validate($token);
+    $token = $auth->generateToken($db_user->id);
 
-    return response()->json(["header" => $verify], 200);
-
-    // $user = new User();
-
-    // $this->validate(
-    //   $request,
-    //   [
-    //     "email" => "required",
-    //     "password" => "required"
-    //   ],
-    //   $user->messages
-    // );
-
-    // $user->email = $request->email;
-    // $user->password = hash("sha256", $request->password);
-
-    // $db_user = $user->where([
-    //   ["email" => $user->email],
-    //   ["password" => $user->password]
-    // ]);
-
-    // if(is_null($db_user))
-    //   return response()->json(["message" => "User not found."], 404);
-    
-    
+    return response()->json(["token" => $token, "user" => $db_user], 201);
   }
 }
