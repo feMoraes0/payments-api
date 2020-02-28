@@ -12,6 +12,7 @@ You can find all endpoints and useful informations about this API [here](https:/
  - [Introduction to JSON Web Tokens](https://jwt.io/introduction/)
  - [HTTP Status Code](https://httpstatuses.com/)
  - [Get Laravel Route Parameters in Middleware](https://scotch.io/tutorials/get-laravel-route-parameters-in-middleware)
+ - [Deploy Laravel/Lumen on Heroku](https://devcenter.heroku.com/articles/getting-started-with-laravel)
 
 ## Contact
   - <a target="_blank" href="https://www.linkedin.com/in/fernando-moraes-48a26916a/">LinkedIn</a>
