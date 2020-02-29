@@ -5,6 +5,9 @@
 ## Documentation
 You can find all endpoints and useful informations about this API [here](https://paymentsapi.readme.io/) (incomplete).
 
+- [x] [Introduction](https://paymentsapi.readme.io/reference#introduction)
+- [x] [Gell all categories](https://paymentsapi.readme.io/reference#categories-1)
+
 ## Useful Links
  - [Lumen 6.X](https://lumen.laravel.com/docs/6.x/)
  - [Validation](https://lumen.laravel.com/docs/6.x/validation)
